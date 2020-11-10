@@ -4,37 +4,62 @@ import pandas as pd
 import csv
 import matplotlib.pyplot as plt
 import requests
-from io import StringIO
+from io import BytesIO, StringIO
+import plotly.offline as py
+import plotly.graph_objs as go
+import altair as alt
+
+py.init_notebook_mode(connected=True)
 
 st.sidebar.title('Menu')
 paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
 
 if paginaSelecionada == 'Página de Plotagem':
-    url="https://raw.githubusercontent.com/LogAp/processo-seletivo-logap/blob/main/arquivos-importacao/Mai-2017-curva-potencia-windbox.csv"
-    s=requests.get(url).text
-    c=pd.read_csv(StringIO(s))
 
-    x = []
-    y = []
+    def main():
+        st.set_option('deprecation.showPyplotGlobalUse', False)
+        file = st.file_uploader("Escolha um arquivo para upload:", type = ["csv"])
+        show_file = st.empty()
 
-    for line in c:
-        line = line.strip()
-        n, z = line.split(';')
-        x.append(n)
-        y.append(z)
+        if not file:
+            show_file.info("Escolha um arquivo para upload do tipo {}".format(' '.join(["csv"])))
+            return
 
-    plt.scatter(x, y, color='blue')
-    plt.xlabel("Velocidade do Vento")
-    plt.ylabel("Potência")
-    plt.show()
+        if file.name == 'Mai-2017-curva-potencia-windbox.csv':    
+            df = pd.read_csv(file, sep = ';')
+            st.dataframe(df)
+            df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
+            st.pyplot()
+        elif file.name =='Abr-2017-curva-potencia-windbox.csv':
+            df = pd.read_csv(file, sep = ';')
+            st.dataframe(df)
+            df.plot.scatter(x='Velocidade do vento (m/s)', y='Potencia (MWh)')
+            st.pyplot()
+        elif file.name =='Nov-2017-curva-potencia-windbox.csv':
+            df = pd.read_csv('Nov-2017-curva-potencia-windbox.csv').reset_index()
+            df = df.iloc[:,1:].rename(columns={'level_1':'Velocidade do vento (m/s)','Velocidade do vento (m/s);"Potência (kWh)':'Potência (kWh)'})
+            df['Velocidade do vento (m/s)'] = df['Velocidade do vento (m/s)'].str.replace(';','.')
+            st.dataframe(df)
+            df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
+            st.pyplot()
+        
+    main()
+
 elif paginaSelecionada == 'Algoritmo resolvido':
     n = []
-    st.title('Exemplo')
+    st.title('Soma')
     sentence = st.text_input('Insira os números:') 
     n.append(sentence)
     for numero in n:
         st.write(numero)
-    
+        
     sentence2 = st.text_input('Insira um número para validação:') 
+    n2 = sentence2
     if sentence2:
         st.write(sentence2)
+
+    for i in numero:
+        for j in numero:
+            if numero [i] + numero[j] == n2:
+                st.write(numero[i])
+                st.write(numero[j])
