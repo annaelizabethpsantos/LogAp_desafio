@@ -1,0 +1,40 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+import csv
+import matplotlib.pyplot as plt
+import requests
+from io import StringIO
+
+st.sidebar.title('Menu')
+paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
+
+if paginaSelecionada == 'Página de Plotagem':
+    url="https://raw.githubusercontent.com/LogAp/processo-seletivo-logap/blob/main/arquivos-importacao/Mai-2017-curva-potencia-windbox.csv"
+    s=requests.get(url).text
+    c=pd.read_csv(StringIO(s))
+
+    x = []
+    y = []
+
+    for line in c:
+        line = line.strip()
+        n, z = line.split(';')
+        x.append(n)
+        y.append(z)
+
+    plt.scatter(x, y, color='blue')
+    plt.xlabel("Velocidade do Vento")
+    plt.ylabel("Potência")
+    plt.show()
+elif paginaSelecionada == 'Algoritmo resolvido':
+    n = []
+    st.title('Exemplo')
+    sentence = st.text_input('Insira os números:') 
+    n.append(sentence)
+    for numero in n:
+        st.write(numero)
+    
+    sentence2 = st.text_input('Insira um número para validação:') 
+    if sentence2:
+        st.write(sentence2)
