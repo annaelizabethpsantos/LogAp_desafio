@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.sidebar.title('Menu')
-paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
+paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo'])
 
 if paginaSelecionada == 'Página de Plotagem':
 
@@ -23,7 +23,7 @@ if paginaSelecionada == 'Página de Plotagem':
         st.pyplot()
     main()
 
-elif paginaSelecionada == 'Algoritmo resolvido':
+elif paginaSelecionada == 'Algoritmo':
     n = []
     st.title('Soma')
     sentence = st.text_input('Insira os números:') 
