@@ -1,6 +1,8 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import io
+from io import BytesIO, StringIO
 
 st.sidebar.title('Menu')
 paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
