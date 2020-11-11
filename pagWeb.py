@@ -15,10 +15,10 @@ if paginaSelecionada == 'Página de Plotagem':
             show_file.info("Escolha um arquivo para upload do tipo {}".format(' '.join(["csv"])))
             return
  
-            df = pd.read_csv(file, sep = ';')
-            st.dataframe(df)
-            df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
-            st.pyplot()
+        df = pd.read_csv(file, sep = ';')
+        st.dataframe(df)
+        df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
+        st.pyplot()
     main()
 
 elif paginaSelecionada == 'Algoritmo resolvido':
