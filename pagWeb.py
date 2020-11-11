@@ -14,23 +14,11 @@ if paginaSelecionada == 'Página de Plotagem':
         if not file:
             show_file.info("Escolha um arquivo para upload do tipo {}".format(' '.join(["csv"])))
             return
-
-        if file.name == 'Mai-2017-curva-potencia-windbox.csv':    
+ 
             df = pd.read_csv(file, sep = ';')
             st.dataframe(df)
             df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
             st.pyplot()
-        elif file.name =='Abr-2017-curva-potencia-windbox.csv':
-            df = pd.read_csv(file, sep = ';')
-            st.dataframe(df)
-            df.plot.scatter(x='Velocidade do vento (m/s)', y='Potencia (MWh)')
-            st.pyplot()
-        elif file.name =='Nov-2017-curva-potencia-windbox.csv':
-            df = pd.read_csv('Nov-2017-curva-potencia-windbox.csv').reset_index()
-            df = df.iloc[:,1:].rename(columns={'level_1':'Velocidade do vento (m/s)','Velocidade do vento (m/s);"Potência (kWh)':'Potência (kWh)'})
-            st.dataframe(df)
-            df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
-            st.pyplot()     
     main()
 
 elif paginaSelecionada == 'Algoritmo resolvido':
