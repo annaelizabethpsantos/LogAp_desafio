@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
 st.sidebar.title('Menu')
 paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
 
