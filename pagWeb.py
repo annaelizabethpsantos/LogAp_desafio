@@ -3,12 +3,11 @@ import numpy as np
 import pandas as pd
 
 st.sidebar.title('Menu')
-paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo'])
+paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
 
 if paginaSelecionada == 'Página de Plotagem':
 
     def main():
-        st.set_option('deprecation.showPyplotGlobalUse', False)
         file = st.file_uploader("Escolha um arquivo para upload:", type = ["csv"])
         show_file = st.empty()
 
@@ -31,11 +30,10 @@ if paginaSelecionada == 'Página de Plotagem':
             df = df.iloc[:,1:].rename(columns={'level_1':'Velocidade do vento (m/s)','Velocidade do vento (m/s);"Potência (kWh)':'Potência (kWh)'})
             st.dataframe(df)
             df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
-            st.pyplot()
-        
+            st.pyplot()     
     main()
 
-elif paginaSelecionada == 'Algoritmo':
+elif paginaSelecionada == 'Algoritmo resolvido':
     n = []
     st.title('Soma')
     sentence = st.text_input('Insira os números:') 
