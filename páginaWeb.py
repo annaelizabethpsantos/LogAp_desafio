@@ -1,18 +1,9 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import csv
-import matplotlib.pyplot as plt
-import requests
-from io import BytesIO, StringIO
-import plotly.offline as py
-import plotly.graph_objs as go
-import altair as alt
-
-py.init_notebook_mode(connected=True)
 
 st.sidebar.title('Menu')
-paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo resolvido'])
+paginaSelecionada = st.sidebar.selectbox('Selecione uma página', ['Página de Plotagem', 'Algoritmo'])
 
 if paginaSelecionada == 'Página de Plotagem':
 
@@ -38,14 +29,13 @@ if paginaSelecionada == 'Página de Plotagem':
         elif file.name =='Nov-2017-curva-potencia-windbox.csv':
             df = pd.read_csv('Nov-2017-curva-potencia-windbox.csv').reset_index()
             df = df.iloc[:,1:].rename(columns={'level_1':'Velocidade do vento (m/s)','Velocidade do vento (m/s);"Potência (kWh)':'Potência (kWh)'})
-            df['Velocidade do vento (m/s)'] = df['Velocidade do vento (m/s)'].str.replace(';','.')
             st.dataframe(df)
             df.plot.scatter(x='Velocidade do vento (m/s)', y='Potência (kWh)')
             st.pyplot()
         
     main()
 
-elif paginaSelecionada == 'Algoritmo resolvido':
+elif paginaSelecionada == 'Algoritmo':
     n = []
     st.title('Soma')
     sentence = st.text_input('Insira os números:') 
